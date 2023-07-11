@@ -23,6 +23,7 @@ public class Application {
         *   PooledDataSource : ConnectionPool 사용
         *   UnpooledDataSource : ConnectionPool 미사용
         * */
+
         Environment environment = new Environment(
                 "dev",
                 new JdbcTransactionFactory(),
@@ -38,6 +39,7 @@ public class Application {
         *   build() : 설정에 대한 정보를 담고 있는 Configuration 타입의 객체 혹은 외부 설정 파일과 연결된 stream을 매개변수로 전달하면
         *             SqlSessionFactory 인터페이스 타입의 객체를 반환하는 메소드
         * */
+
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         SqlSession session = sqlSessionFactory.openSession(false);
 
