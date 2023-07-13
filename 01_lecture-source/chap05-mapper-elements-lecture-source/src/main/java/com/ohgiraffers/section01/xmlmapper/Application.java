@@ -37,6 +37,9 @@ public class Application {
             System.out.println("3. <association> 테스트");
             System.out.println("4. <collection> 테스트");
             System.out.print("메뉴 번호를 입력하세요 :");
+
+            int no = sc.nextInt();
+
             int no = sc.nextInt();
 
             switch (no) {
