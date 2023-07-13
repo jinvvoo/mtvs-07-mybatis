@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.section03.remix.MenuMapper">
+<!--    menu.setMenuName(rset.getString("MENU_NAME"); 이러한 것을 매핑이라고 한다.-->
+    <resultMap type="com.ohgiraffers.section03.remix.MenuDTO" id="menuResultMap">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <select id="findAllMenus" resultMap="menuResultMap">
+        SELECT
+                MENU_CODE
+            ,   MENU_NAME
+            ,   MENU_PRICE
+            ,   CATEGORY_CODE
+            ,   ORDERABLE_STATUS
+         FROM   TBL_MENU
+        WHERE   ORDERABLE_STATUS = 'Y'
+        ORDER BY MENU_CODE
+    </select>
+
+    <select id="findMenuByMenuCode" resultMap="menuResultMap" parameterType="_int">
+        SELECT  <!--   힌트구문자리, /* com.ohgiraffers.section01.xmlconfig.MenuDAO#findMenuByMenuCode() */       -->
+                <!--                 '여기서 사용하고 있다' 라는 뜻     -->
+                <!--                 네비게이션이 길 알아서 정해주는데, 내가 최적경로 더 잘알아! 하고 자신감있게 채우는 구문  -->
+                MENU_CODE
+            ,   MENU_NAME
+            ,   MENU_PRICE
+            ,   CATEGORY_CODE
+            ,   ORDERABLE_STATUS
+         FROM   TBL_MENU
+        WHERE   MENU_CODE = #{ menuCode }
+    </select>
+
+    <insert id="registMenu" parameterType="com.ohgiraffers.section03.remix.MenuDTO">
+        INSERT
+          INTO TBL_MENU
+        (
+          MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        )
+        VALUES
+        (
+          #{menuName}
+        , #{menuPrice}
+        , #{categoryCode}
+        , 'Y'
+        )
+    </insert>
+</mapper>
+
